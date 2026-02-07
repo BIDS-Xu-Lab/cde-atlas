@@ -13,3 +13,26 @@ body {
   height: 100vh;
   overflow: hidden;
 }
+
+.pin-label {
+  padding-left: 0.5rem;
+}
+
+.pin-label-text {
+  font-size: 0.875rem;
+  color: #fff;
+  background-color: rgba(8, 8, 8, 0.85);
+  border-radius: 0.25rem;
+  padding-left: 0.25rem;
+}
+
+.pin-label-text::before {
+  content: '';
+  position: absolute;
+  left: 0.1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 0.4rem;
+  border-style: solid;
+  border-color: transparent black transparent transparent;
+}

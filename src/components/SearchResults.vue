@@ -1,10 +1,15 @@
 <template>
   <div class="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-lg border border-gray-200 max-h-80 overflow-y-auto z-50">
+    <div class="px-3 py-1.5 text-xs text-gray-500 border-b border-gray-100 bg-gray-50 rounded-t-lg sticky top-0">
+      {{ totalMatchCount.toLocaleString() }} matches found
+    </div>
     <ul class="py-1">
       <li
         v-for="item in suggestions"
         :key="item.id"
         @click="$emit('select', item)"
+        @mouseenter="$emit('hover', item)"
+        @mouseleave="$emit('hover', null)"
         class="px-3 py-2 hover:bg-blue-50 cursor-pointer transition-colors"
       >
         <div class="text-sm font-medium text-gray-900 truncate">{{ item.name }}</div>
@@ -24,6 +29,6 @@
 <script setup>
 import { getOrgColor } from '../utils/colors.js'
 
-defineProps({ suggestions: Array })
-defineEmits(['select'])
+defineProps({ suggestions: Array, totalMatchCount: Number })
+defineEmits(['select', 'hover'])
 </script>

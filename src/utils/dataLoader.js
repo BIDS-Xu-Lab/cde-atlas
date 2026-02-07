@@ -3,7 +3,7 @@
  * Returns an array of objects with typed fields.
  */
 export async function loadCdeData() {
-  const response = await fetch('/data/cde-20250123.tsv')
+  const response = await fetch(`${import.meta.env.BASE_URL}data/cde-20250123.tsv`)
   const text = await response.text()
   const lines = text.split('\n')
 

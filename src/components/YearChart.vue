@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white/95 backdrop-blur-sm border-t border-gray-200 select-none" style="height: 110px;">
+  <div class="bg-white/95 backdrop-blur-sm border border-gray-200 rounded-t-xl select-none" style="height: 110px; width: 500px;">
     <div class="relative w-full h-full px-4 py-2" ref="chartRef">
       <svg
         :viewBox="`0 0 ${svgWidth} ${svgHeight}`"
@@ -115,12 +115,12 @@ import { YEAR_MIN, YEAR_MAX } from '../utils/constants.js'
 const store = useCdeStore()
 const chartRef = ref(null)
 
-const svgWidth = 900
-const svgHeight = 90
-const paddingLeft = 45
+const svgWidth = 468
+const svgHeight = 94
+const paddingLeft = 30
 const paddingRight = 20
 const paddingTop = 16
-const paddingBottom = 16
+const paddingBottom = 18
 const chartHeight = svgHeight - paddingTop - paddingBottom
 
 const years = []

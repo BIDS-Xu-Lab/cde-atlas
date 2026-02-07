@@ -45,7 +45,9 @@
       <SearchResults
         v-if="showDropdown && suggestions.length > 0"
         :suggestions="suggestions"
+        :totalMatchCount="totalMatchCount"
         @select="onSelect"
+        @hover="onHover"
       />
     </div>
 
@@ -74,11 +76,13 @@
 import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useSearch } from '../composables/useSearch.js'
+import { useCdeStore } from '../stores/cdeStore.js'
 import SearchResults from './SearchResults.vue'
 
 const route = useRoute()
 const router = useRouter()
-const { suggestions, search, clearSearch } = useSearch()
+const store = useCdeStore()
+const { suggestions, totalMatchCount, search, clearSearch } = useSearch()
 
 const query = ref('')
 const showDropdown = ref(false)
@@ -106,20 +110,40 @@ function onClear() {
   query.value = ''
   clearSearch()
   showDropdown.value = false
+  store.setHighlightCde(null)
+}
+
+function findCdeById(id) {
+  return store.allData.find(cde => cde.id === id) || null
 }
 
 function onSelect(item) {
   showDropdown.value = false
-  // Navigate to map view to see the selected point
+  store.setHighlightCde(null)
+  const cde = findCdeById(item.id)
+  if (cde) {
+    store.selectCde(cde)
+    store.setFocusCde(cde)
+  }
   if (route.name !== 'map') {
     router.push('/')
   }
+}
+
+function onHover(item) {
+  if (!item) {
+    store.setHighlightCde(null)
+    return
+  }
+  const cde = findCdeById(item.id)
+  if (cde) store.setHighlightCde(cde)
 }
 
 function onBlur() {
   // Delay to allow click on dropdown items
   setTimeout(() => {
     showDropdown.value = false
+    store.setHighlightCde(null)
   }, 200)
 }
 </script>

@@ -140,3 +140,7 @@ vite.config.ts.timestamp-*
 
 .DS_Store
 Thumbs.db
+
+# CDE data pipeline
+data/raw/
+data/cache/
